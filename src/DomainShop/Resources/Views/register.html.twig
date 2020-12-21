@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h2>Register <b>{{ domainName }}</b></h2>
+
+    <h3>Fill in your details</h3>
+
+    <form method="post" action="{{ url('register') }}" enctype="multipart/form-data">
+        <input type="hidden" name="domain_name" value="{{ domainName }}"/>
+        <div class="form-group{% if formErrors["name"] is defined %} has-error{% endif %}">
+            <label class="control-label" for="name">Name:</label>
+            <input class="form-control" id="name" name="name" type="text" value="{{ submittedData["name"]|default("") }}"/>
+            {% for error in formErrors["name"]|default({}) %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group{% if formErrors["email_address"] is defined %} has-error{% endif %}">
+            <label class="control-label" for="email_address">Email address:</label>
+            <input class="form-control" id="email_address" name="email_address" type="text" value="{{ submittedData["email_address"]|default("") }}"/>
+            {% for error in formErrors["email_address"]|default({}) %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group{% if formErrors["payInCurrency"] is defined %} has-error{% endif %}">
+            <label class="control-label" for="currency">Pay in currency:</label>
+            <select class="form-control" id="currency" name="currency">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+            </select>
+            {% for error in formErrors["payInCurrency"]|default({}) %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary" name="register">Buy this domain name</button>
+    </form>
+
+{% endblock %}

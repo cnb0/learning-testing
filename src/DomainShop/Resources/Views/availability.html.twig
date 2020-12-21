@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {% if isAvailable %}
+        <h2 class="alert alert-success">Congratulations! <b>{{ domainName }}</b> is still available.</h2>
+        <form method="post" enctype="multipart/form-data" action="{{ url('register') }}">
+            <input type="hidden" name="domain_name" value="{{ domainName }}"/>
+            <button class="btn btn-primary" type="submit">Register it now</button>
+        </form>
+
+    {% else %}
+        <h2 class="alert alert-warning">We're sorry! <b>{{ domainName }}</b> is not available anymore.</h2>
+
+        <pre>{{ whoisInformation }}</pre>
+    {% endif %}
+{% endblock %}
